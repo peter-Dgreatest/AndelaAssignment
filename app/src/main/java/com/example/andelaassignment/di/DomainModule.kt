@@ -4,7 +4,8 @@ import com.example.andelaassignment.data.ShiftsDataRepository
 import com.example.andelaassignment.data.ShiftsDataSource
 import com.example.andelaassignment.domain.usecase.GetShiftsUseCase
 import com.example.andelaassignment.domain.usecase.GetShiftsUseCaseImpl
-import com.example.andelaassignment.domain.ShiftDatabaseToDomainMapper
+import com.example.andelaassignment.domain.mapper.ShiftDatabaseToDomainMapper
+import com.example.andelaassignment.domain.mapper.ShiftDomainToDataMapper
 import com.example.andelaassignment.domain.ShiftsRepository
 import com.example.andelaassignment.domain.usecase.UpdateShiftsUseCase
 import com.example.andelaassignment.domain.usecase.UpdateShiftsUseCaseImpl
@@ -20,12 +21,13 @@ class DomainModule {
     fun provideShiftDatabaseToDomainMapper() = ShiftDatabaseToDomainMapper()
 
     @Provides
+    fun provideShiftDomainToDataMapper() = ShiftDomainToDataMapper()
+
+    @Provides
     fun provideShiftsDataRepository(
-        shiftsDataSource: ShiftsDataSource,
-        shiftsDatabaseToDomainMapper: ShiftDatabaseToDomainMapper
+        shiftsDataSource: ShiftsDataSource
     ) : ShiftsRepository = ShiftsDataRepository(
-        shiftsDataSource = shiftsDataSource,
-        shiftsDatabaseToDomainMapper
+        shiftsDataSource = shiftsDataSource
     )
 
     @Provides
@@ -37,8 +39,10 @@ class DomainModule {
 
     @Provides
     fun provideUpdateShiftsUseCase(
-        shiftsRepository: ShiftsRepository
+        shiftsRepository: ShiftsRepository,
+        shiftDomainToDataMapper: ShiftDomainToDataMapper
     ) : UpdateShiftsUseCase = UpdateShiftsUseCaseImpl(
-        shiftsRepository = shiftsRepository
+        shiftsRepository = shiftsRepository,
+        shiftDomainToDataMapper
     )
 }

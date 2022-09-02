@@ -1,12 +1,16 @@
-package com.example.andelaassignment.ui
+package com.example.andelaassignment.ui.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.andelaassignment.R
 import com.example.andelaassignment.databinding.FragmentShiftListBinding
 import com.example.andelaassignment.presentation.ShiftListViewModel
@@ -24,9 +28,18 @@ class ShiftListFragment : Fragment() {
     @Inject
     lateinit var shiftPresentationToUiModelMapper: ShiftPresentationToUiModelMapper
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        val inflater: MenuInflater = requireActivity().menuInflater
+        inflater.inflate(R.menu.my_options_menu, menu)
+    }
 
-    companion object {
-        fun newInstance() = ShiftListFragment()
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.add_shift_menu -> viewModel.onNavigate()
+        }
+        return super.onOptionsItemSelected(item)
+
     }
 
     override fun onCreateView(
@@ -38,25 +51,28 @@ class ShiftListFragment : Fragment() {
             inflater,
             R.layout.fragment_shift_list, container, false
         )
-
+        binding.lifecycleOwner = this
+        setHasOptionsMenu(true)
 
 
         shiftListAdapter = ShiftListAdapter()
 
         binding.shiftListView.adapter = shiftListAdapter
 
-        // binding.rcyView.adapter = invoicesAdapter
+        viewModel.navigateToNextActivity.observe(this){
+            if(it) {
+                findNavController().navigate(
+                    ShiftListFragmentDirections.actionShiftListFragmentToAddShiftFragment()
+                )
+                viewModel.endNavigation()
+            }
+        }
 
         viewModel.shifts.observe(this) {
-            val shifts = it.map { shift -> shiftPresentationToUiModelMapper.toUi(shift) }
+            val shifts = it?.map { shift -> shiftPresentationToUiModelMapper.toUi(shift) }
             shiftListAdapter.mListRef = shifts
             shiftListAdapter.submitList(shifts)
         }
-
-//        binding.addNewInvoice.setOnClickListener {
-//            showModal()
-//            startActivity(Intent(this.activity, FeesSelectActivity::class.java))
-//        }
 
         binding.viewmodel = viewModel
         return binding.root

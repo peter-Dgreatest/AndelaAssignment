@@ -3,9 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/ic_baseline_expand_more_24.xml" value="0.145" />
+        <entry key="app/src/main/res/drawable/spinner_bg.xml" value="0.145" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.17147922998986828" />
+        <entry key="app/src/main/res/layout/fragment_add_shift.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_shift_list.xml" value="0.18385416666666668" />
-        <entry key="app/src/main/res/layout/shift_item_view.xml" value="0.29393115942028986" />
+        <entry key="app/src/main/res/layout/my_dropdown_item.xml" value="0.18385416666666668" />
+        <entry key="app/src/main/res/layout/my_selected_item.xml" value="0.18385416666666668" />
+        <entry key="app/src/main/res/layout/shift_item_view.xml" value="0.1" />
+        <entry key="app/src/main/res/menu/add_shift_options_menu.xml" value="0.18385416666666668" />
+        <entry key="app/src/main/res/menu/my_options_menu.xml" value="0.18385416666666668" />
       </map>
     </option>
   </component>

@@ -1,5 +1,6 @@
 package com.example.andelaassignment.data.local
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -9,7 +10,7 @@ import com.example.andelaassignment.data.models.ShiftEntityModel
 @Dao
 interface ShiftDao {
     @Query("SELECT * FROM shifts")
-    fun getAll(): List<ShiftEntityModel>
+    fun getAll(): LiveData<List<ShiftEntityModel>>
 
     @Insert
     fun insertAll(vararg shifts: ShiftEntityModel)

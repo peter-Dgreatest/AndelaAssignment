@@ -2,14 +2,14 @@ package com.example.andelaassignment.ui.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import android.widget.Filter
-import android.widget.Filterable
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.andelaassignment.R
 import com.example.andelaassignment.databinding.ShiftItemViewBinding
-import com.example.andelaassignment.ui.ShiftUiModel
+import com.example.andelaassignment.ui.model.ShiftUiModel
 import com.example.andelaassignment.ui.adapter.ShiftListAdapter.ShiftViewHolder
 
 class ShiftListAdapter:
@@ -25,7 +25,7 @@ class ShiftListAdapter:
         RecyclerView.ViewHolder(
             binding.root
         ) {
-        fun bind(item: ShiftUiModel, pos:Int) {
+        fun bind(item: ShiftUiModel) {
             binding.shiftItem = item
             binding.executePendingBindings()
         }
@@ -41,13 +41,13 @@ class ShiftListAdapter:
 
     override fun onBindViewHolder(holder: ShiftViewHolder, position: Int) {
         var item = getItem(position)
-        holder.bind(item,position)
+        holder.bind(item)
     }
 }
 
 class ShiftDiffCallBack:DiffUtil.ItemCallback<ShiftUiModel>(){
     override fun areItemsTheSame(oldItem: ShiftUiModel, newItem: ShiftUiModel): Boolean {
-        return oldItem.name==newItem.name
+        return oldItem.displayText==newItem.displayText
     }
 
     @SuppressLint("DiffUtilEquals")

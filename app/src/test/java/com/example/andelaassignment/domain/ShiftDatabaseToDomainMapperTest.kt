@@ -1,6 +1,7 @@
 package com.example.andelaassignment.domain
 
 import com.example.andelaassignment.data.models.ShiftEntityModel
+import com.example.andelaassignment.domain.mapper.ShiftDatabaseToDomainMapper
 import com.example.andelaassignment.domain.model.ShiftDomainModel
 import org.junit.Assert.assertEquals
 import org.junit.Before

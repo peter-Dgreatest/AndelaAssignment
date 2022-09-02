@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:name=".MyApplication"
-        android:theme="@style/Theme.AndelaAssignment">
+        android:theme="@style/Theme.AppCompat.Light">
         <activity
             android:name=".ui.MainActivity"
             android:exported="true">

@@ -1,16 +1,17 @@
 package com.example.andelaassignment.domain.usecase
 
+import androidx.lifecycle.LiveData
+import com.example.andelaassignment.data.models.ShiftEntityModel
 import com.example.andelaassignment.domain.ShiftsRepository
-import com.example.andelaassignment.domain.model.ShiftDomainModel
 
 interface GetShiftsUseCase {
-    suspend fun executeInBackground(): List<ShiftDomainModel>
+    fun executeInBackground(): LiveData<List<ShiftEntityModel>>
 }
 
 class GetShiftsUseCaseImpl(
     private val shiftsRepository: ShiftsRepository
 ) : GetShiftsUseCase {
-    override suspend fun executeInBackground() =
+    override fun executeInBackground() =
         shiftsRepository.shifts()
 
 }

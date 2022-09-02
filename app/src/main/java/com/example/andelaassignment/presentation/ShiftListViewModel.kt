@@ -1,11 +1,11 @@
 package com.example.andelaassignment.presentation
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.example.andelaassignment.domain.usecase.GetShiftsUseCase
 import com.example.andelaassignment.domain.usecase.UpdateShiftsUseCase
-import com.example.andelaassignment.presentation.mapper.ShiftDomainToPresentationMapper
-import com.example.andelaassignment.presentation.model.ShiftPresentationModel
+import com.example.andelaassignment.presentation.mapper.ShiftDatabaseToPresentationMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,7 +17,7 @@ import javax.inject.Inject
 class ShiftListViewModel @Inject constructor(
     private val getShiftsUseCase: GetShiftsUseCase,
     private val updateShiftsUseCase: UpdateShiftsUseCase,
-    private val shiftsDomainToPresentationMapper: ShiftDomainToPresentationMapper
+    private val shiftsDatabaseToPresentationMapper: ShiftDatabaseToPresentationMapper
 ) : ViewModel() {
 
 
@@ -25,13 +25,17 @@ class ShiftListViewModel @Inject constructor(
 
     private val viewModelScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
-    var shifts = MutableLiveData<List<ShiftPresentationModel>>()
+    //cached
+    private val _shifts = getShiftsUseCase.executeInBackground()
+
+    //public
+    val shifts = Transformations.map(_shifts){
+        _shifts.value?.map { shiftsDatabaseToPresentationMapper.toPresentation(it) }
+    }
 
     init {
         viewModelScope.launch {
             updateShiftsUseCase.initialize()
-            shifts.value =
-                getShiftsUseCase.executeInBackground().map { shiftsDomainToPresentationMapper.toPresentation(it) }
         }
     }
 
@@ -44,5 +48,9 @@ class ShiftListViewModel @Inject constructor(
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
+    }
+
+    fun endNavigation() {
+        navigateToNextActivity.value=false
     }
 }

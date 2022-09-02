@@ -1,5 +1,6 @@
 package com.example.andelaassignment.data
 
+import androidx.lifecycle.LiveData
 import com.example.andelaassignment.data.local.ShiftDao
 import com.example.andelaassignment.data.mappers.JsonConverter
 import com.example.andelaassignment.data.mappers.ShiftDataToDatabaseModelMapper
@@ -9,7 +10,7 @@ import com.example.andelaassignment.data.models.ShiftsDataListModel
 interface ShiftsSource {
     fun initialize()
 
-    fun fetch() : List<ShiftEntityModel>
+    fun fetch() : LiveData<List<ShiftEntityModel>>
 
     fun unInitialize()
 

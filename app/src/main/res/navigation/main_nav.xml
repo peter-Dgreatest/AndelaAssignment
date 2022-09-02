@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/shiftListFragment">
+    <fragment
+        android:id="@+id/shiftListFragment"
+        android:name="com.example.andelaassignment.ui.fragments.ShiftListFragment"
+        tools:layout="@layout/fragment_shift_list"
+        android:label="ShiftListFragment" >
+        <action
+            android:id="@+id/action_shiftListFragment_to_addShiftFragment"
+            app:destination="@id/addShiftFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addShiftFragment"
+        android:name="com.example.andelaassignment.ui.fragments.AddShiftFragment"
+        tools:layout="@layout/fragment_add_shift"
+        android:label="AddShiftFragment" >
+        <action
+            android:id="@+id/action_addShiftFragment_to_shiftListFragment"
+            app:destination="@id/shiftListFragment" />
+    </fragment>
+</navigation>

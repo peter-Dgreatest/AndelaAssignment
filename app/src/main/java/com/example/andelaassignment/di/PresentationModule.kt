@@ -1,7 +1,7 @@
 package com.example.andelaassignment.di
 
 import com.example.andelaassignment.data.mappers.ShiftDatabaseToDataModelMapper
-import com.example.andelaassignment.presentation.mapper.ShiftDomainToPresentationMapper
+import com.example.andelaassignment.presentation.mapper.ShiftDatabaseToPresentationMapper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,7 +11,7 @@ import dagger.hilt.android.components.ViewModelComponent
 @InstallIn(ViewModelComponent::class)
 class PresentationModule {
     @Provides
-    fun provideShiftDomainToPresentationMapper() = ShiftDomainToPresentationMapper()
+    fun provideShiftDatabaseToPresentationMapper() = ShiftDatabaseToPresentationMapper()
 
     @Provides
     fun provideShiftDatabaseToDataModelMapper() = ShiftDatabaseToDataModelMapper()

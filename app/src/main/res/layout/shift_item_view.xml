@@ -5,12 +5,12 @@
     <data>
         <variable
             name="shiftItem"
-            type="com.example.andelaassignment.ui.ShiftUiModel" />
+            type="com.example.andelaassignment.ui.model.ShiftUiModel" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:weightSum="7"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_margin="10dp"
@@ -21,19 +21,20 @@
             android:layout_height="wrap_content"
             android:layout_weight="4"
             android:id="@+id/shift_title"
-            android:text="@{shiftItem.name}"
+            android:text="@{shiftItem.displayText}"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             />
 
-        <ImageView
-            android:layout_width="0dp"
+        <View
+            android:layout_width="10dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:id="@+id/shift_color_decorator"
-            app:layout_constraintStart_toEndOf="@id/shift_title"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_gravity="end"
+            android:foregroundGravity="center_vertical"
+            android:background="@{shiftItem.color}"
             />
 
         <TextView
@@ -41,8 +42,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:id="@+id/shift_time"
-            android:textColor="@color/black"
-            android:text="@{shiftItem.start_date}"
+            android:textColor="@{shiftItem.color}"
+            android:text="@{shiftItem.time}"
+            android:layout_gravity="end"
+            android:gravity="end"
             app:layout_constraintStart_toEndOf="@id/shift_title"
             app:layout_constraintTop_toTopOf="parent"
             />
